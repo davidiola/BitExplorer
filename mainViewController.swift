@@ -10,10 +10,20 @@ import UIKit
 
 class mainViewController: UIViewController {
 
+    @IBOutlet weak var buttonPlus: UIButton!
+    @IBOutlet weak var buttonLogin: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        buttonPlus.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
+        buttonPlus.setTitle(String.fontAwesomeIcon(name: .plusSquare), for: .normal)
+        
+        buttonLogin.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
+    buttonLogin.setTitle(String.fontAwesomeIcon(name: .signIn), for: .normal)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
