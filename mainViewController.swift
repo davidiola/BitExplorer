@@ -7,11 +7,22 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
+
+
 
 class mainViewController: UIViewController {
 
     @IBOutlet weak var buttonPlus: UIButton!
     @IBOutlet weak var buttonLogin: UIButton!
+    @IBOutlet weak var userLabel: UILabel!
+    
+    
+    var ref: FIRDatabaseReference!
+
     
     
     override func viewDidLoad() {
@@ -21,7 +32,31 @@ class mainViewController: UIViewController {
         buttonPlus.setTitle(String.fontAwesomeIcon(name: .plusSquare), for: .normal)
         
         buttonLogin.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
-    buttonLogin.setTitle(String.fontAwesomeIcon(name: .signIn), for: .normal)
+        buttonLogin.setTitle(String.fontAwesomeIcon(name: .signIn), for: .normal)
+    
+        
+        
+        
+        
+        
+        ref = FIRDatabase.database().reference()
+        let userUID = FIRAuth.auth()?.currentUser?.uid
+        
+        print(userUID)
+        ref.child("users").child(userUID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? NSDictionary
+            let name = value?["First"] as! String
+            let lastName = value?["Last"] as! String
+            
+            print("name is \(name)")
+            print ("last is \(lastName)")
+            
+            self.userLabel.text = name
+
+            
+        }) 
+        
         
         
     }

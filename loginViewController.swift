@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
 
 class loginViewController: UIViewController {
 
@@ -61,9 +65,7 @@ class loginViewController: UIViewController {
         
     }
 
-    @IBAction func loginTapped(_ sender: Any) {
-        
-        
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         let email = emailField.text;
         let password = passwordField.text;
         
@@ -71,27 +73,48 @@ class loginViewController: UIViewController {
         //check firebase to login
         //successful login, "name"
         
-        let myAlert = UIAlertController(title: "Alert", message: "Successful Login", preferredStyle: UIAlertControllerStyle.alert);
-        
-        
-        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) {
+        FIRAuth.auth()?.signIn(withEmail: email!, password: password!) { (user, error) in
             
-            action in
-            self.dismiss(animated: true, completion: nil)
-            
+            if error == nil {
+                
+                //edit this
+                let myAlert = UIAlertController(title: "Alert", message: "Successful Login", preferredStyle: UIAlertControllerStyle.alert);
+                
+                
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) {
+                    
+                    action in
+                    self.performSegue(withIdentifier: "mainSegue", sender: self)
+                    
+                    
+                    
+                }
+                
+                myAlert.addAction(okAction);
+                self.present(myAlert, animated: true, completion: nil);
+                
+                
+                
+            }
+                
+            else {
+                
+                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                //self.displayMyAlertMessage("Login failed")
+                
+            }
             
             
         }
         
-        myAlert.addAction(okAction);
-        self.present(myAlert, animated: true, completion: nil);
-        
-        
-
+        return false
         
     }
-    
-    
     
     
 }

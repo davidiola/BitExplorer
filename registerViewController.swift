@@ -107,21 +107,53 @@ class registerViewController: UIViewController {
         
         
         // store on Firebase
-        
-        let myAlert = UIAlertController(title: "Alert", message: "Registration is Successful", preferredStyle: UIAlertControllerStyle.alert);
-        
-        
-        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) {
+        FIRAuth.auth()?.createUser(withEmail: email!, password: password!) { (user, error) in
+         
             
-            action in
-            self.dismiss(animated: true, completion: nil)
+            if error == nil {
+             
+                let userUID = FIRAuth.auth()?.currentUser?.uid
+                self.ref.child("users").child(userUID!).setValue(["First" : firstname, "Last" : lastname])
+
+                
+                
+                let myAlert = UIAlertController(title: "Alert", message: "Registration is Successful", preferredStyle: UIAlertControllerStyle.alert);
+                
+                
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) {
+                    
+                    action in
+                    self.performSegue(withIdentifier: "loginSegue", sender: self);
+                    
+                    
+                    
+                }
+                
+                myAlert.addAction(okAction);
+                self.present(myAlert, animated: true, completion: nil);
+                
+                
+                
+            }
             
+           else {
+                
+                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+            }
+
             
             
         }
+
+ 
         
-        myAlert.addAction(okAction);
-        self.present(myAlert, animated: true, completion: nil);
+        
 
 
         
