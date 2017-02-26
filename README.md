@@ -21,3 +21,6 @@ BitExplorer is an educational Bitcoin iOS Application that allows its users to l
 
 ## License 
 [https://github.com/davidiola/BitExplorer/blob/master/LICENSE]
+
+#GIF
+![alt tag](http://imgur.com/a/VOjmD)
