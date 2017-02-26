@@ -17,7 +17,7 @@ BitExplorer is an educational Bitcoin iOS Application that allows its users to l
   * I would like to thank Firebase, PopupDialog, SwiftyJSON, Blockchain.info, and Alamofire for letting me use their libraries and API's.
 
 ## Contributor Guide
-[LINK TO CONTRIBUTING.md]
+[https://github.com/davidiola/BitExplorer/blob/master/CONTRIBUTING.md]
 
 ## License 
-[LINK]
+[https://github.com/davidiola/BitExplorer/blob/master/LICENSE]
