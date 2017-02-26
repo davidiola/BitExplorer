@@ -65,7 +65,8 @@ class convertViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func dropdownTriggered(_ sender: Any) {
+
+    @IBAction func triggerDrop(_ sender: Any) {
         
         dropdown.show()
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -109,13 +110,21 @@ class convertViewController: UIViewController {
                 self.factor = 85.186
                 
             }
-        
+            
         }
         
+        let other = Float(otherAmount.text!)
         
-
+        bitcoinAmount.text = String(other! / self.factor)
+        
+        
+        
         
     }
+
+    
+    
+    
     
     func dismissKeyboard() {
         
@@ -125,28 +134,30 @@ class convertViewController: UIViewController {
     }
     
     
-    @IBAction func endEdit(_ sender: Any) {
+    @IBAction func changeEdit(_ sender: Any) {
         
         otherAmount.text = numberField.text
         let before = Float(numberField.text!)
         print(before)
         if (before != nil) {
             
-             bitcoinAmount.text = String((before! / self.factor))
+            bitcoinAmount.text = String((before! / self.factor))
             
         }
-        
+            
         else {
             
             displayMyAlertMessage("Enter a valid number");
             
         }
-       
-        
+
         
         
         
     }
+    
+    
+    
     
     func displayMyAlertMessage(_ userMessage:String) {
         
@@ -170,6 +181,6 @@ class convertViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
         
     }
-
-
+    
+    
 }

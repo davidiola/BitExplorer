@@ -542,6 +542,11 @@ class alphabetViewController: UIViewController {
         
     }
     
+    @IBAction func goBack(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
     
   
     
